@@ -7,7 +7,7 @@ with open('schema.sql') as f:
 
 cur = connection.cursor()
 
-cur.execute("INSERT INTO questions (question, answers) VALUES (?, ?)", ('Members of the tiktok rizz party', 'blue tie kid, turkish quandale dingle'))
+cur.execute("INSERT INTO questions (question, answers) VALUES (?, ?)", ('sample question', 'sample answer'))
 
 connection.commit()
 connection.close()

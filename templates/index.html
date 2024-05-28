@@ -6,9 +6,17 @@
     <title>Reading Club | Family Feud</title>
 
 </head>
+
 <body>
 
     <h1>Reading Club Family Feud</h1>
+
+    {% for q in questions %}
+        <h3>Question {{ q['id'] }}</h3>
+        <p>{{ q['question'] }}</p>
+        <p>{{ q['answers'] }}</p>
+        <hr>
+    {% endfor %}
 
 </body>
 </html>
