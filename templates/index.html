@@ -9,7 +9,14 @@
 
 <body>
 
-    <h1>Reading Club Family Feud</h1>
+    <h1>FAMILY FEUD</h1>
+
+    <div id="stopwatch">
+        <h2 id="time">00:00</h2>
+        <button id="startStopwatch" class="stopwatchButton">Start</button>
+        <button id="pauseStopwatch" class="stopwatchButton">Pause</button>
+        <button id="resetStopwatch" class="stopwatchButton">Reset</button>
+    </div>
 
     {% for q in questions %}
         <h3>Question {{ q['id'] }}</h3>
