@@ -1,5 +1,3 @@
-import sqlite3
-import pandas as pd
 import ast
 from flask import Flask, render_template
 import json

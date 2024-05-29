@@ -1,6 +1,9 @@
 body {
     font-family: Helvetica, sans-serif;
-    background-color: royalblue;
+    background-image: url('family-feud-background-s0mfgayn4mfq9k7p.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 h1 {
