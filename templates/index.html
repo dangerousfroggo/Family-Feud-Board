@@ -5,17 +5,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <title>Reading Club | Family Feud</title>
 
+    <script>
+        var time = 0;
+        let timerRunning = false;
+
+        function resetTimer() {
+            time = 60;
+            document.getElementById("time").innerHTML = time;
+        }
+
+        function updateTimer() {
+            time -= 1;
+            document.getElementById("time").innerHTML = time;
+        }   
+
+        function startTimer() {
+            resetTimer();
+            for (let i=1000; i<61000; i+=1000) {
+                setTimeout(updateTimer, i);
+            }
+        }
+
+    </script>
+
 </head>
 
-<body>
+<body onload="resetTimer()">
 
     <h1>FAMILY FEUD</h1>
 
-    <div id="stopwatch">
-        <h2 id="time">00:00</h2>
-        <button id="startStopwatch" class="stopwatchButton">Start</button>
-        <button id="pauseStopwatch" class="stopwatchButton">Pause</button>
-        <button id="resetStopwatch" class="stopwatchButton">Reset</button>
+    <div id="timer">
+        <h2 id="time">0</h2>
+        <button id="startTimer" class="timerButton" onclick="startTimer()">Start</button>
+        <button id="resetTimer" class="timerButton" onclick="resetTimer()">Reset</button>
     </div>
 
     <ul>
