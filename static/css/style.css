@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 h1 {
@@ -8,16 +8,41 @@ h1 {
     color: darkgoldenrod;
 }
 
-#stopwatch {
+#timer {
     text-align: center;
 }
 
-.stopwatchButton {
+#time {
+    font-size: 72px;
+    color: white;
+    background-color: blue;
+    width: 180px;
+    margin-left: 664px;
+    border-style: solid;
+    border-width: 6px;
+    border-color: lightskyblue;
+}
+
+.timerButton {
+    border-style: solid;
     border-width: 5px;
     border-color: darkgoldenrod;
     border-radius: 15%;
     background-color: blue;
     color: white;
     font-size: 25px;
-    padding: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.timerButton:hover {
+    border-style: solid;
+    border-width: 5px;
+    border-color: darkgoldenrod;
+    border-radius: 15%;
+    background-color: darkblue;
+    color: white;
+    font-size: 25px;
+    padding: 10x;
+    margin: 5px;
 }
