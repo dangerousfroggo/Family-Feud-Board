@@ -18,12 +18,13 @@
         <button id="resetStopwatch" class="stopwatchButton">Reset</button>
     </div>
 
-    {% for q in questions %}
-        <h3>Question {{ q['id'] }}</h3>
-        <p>{{ q['question'] }}</p>
-        <p>{{ q['answers'] }}</p>
-        <hr>
-    {% endfor %}
+    <ul>
+        <h1>{{ question }}</h1>
+
+        {% for answer in answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
 
 </body>
 </html>
