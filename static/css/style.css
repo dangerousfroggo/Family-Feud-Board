@@ -1,11 +1,12 @@
 body {
     font-family: Helvetica, sans-serif;
+    background-color: royalblue;
 }
 
 h1 {
     text-align: center;
     font-size: 100px;
-    color: darkgoldenrod;
+    color: yellow;
 }
 
 #timer {
@@ -26,7 +27,7 @@ h1 {
 .timerButton {
     border-style: solid;
     border-width: 5px;
-    border-color: darkgoldenrod;
+    border-color: yellow;
     border-radius: 15%;
     background-color: blue;
     color: white;
@@ -38,11 +39,50 @@ h1 {
 .timerButton:hover {
     border-style: solid;
     border-width: 5px;
-    border-color: darkgoldenrod;
+    border-color: yellow;
     border-radius: 15%;
     background-color: darkblue;
     color: white;
     font-size: 25px;
-    padding: 10x;
+    padding: 10px;
     margin: 5px;
+}
+
+#answerBox {
+    color: white;
+    font-size: 24px;
+    background-color: mediumblue;
+    border-style: solid;
+    border-width: 5px;
+    border-color: yellow;
+    padding: 15px;
+}
+
+#answerBoxLabel {
+    color: white;
+    font-size: 24px;
+}
+
+#question {
+    color: white;
+    font-size: 50px;
+    background-color: darkblue;
+    border-style: solid;
+    border-width: 5px;
+    border-color: blue;
+    padding: 15px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    color: white;
+    font-size: 24px;
+    background-color: mediumblue;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+    padding: 15px;
 }

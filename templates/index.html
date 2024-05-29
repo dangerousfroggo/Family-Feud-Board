@@ -7,7 +7,6 @@
 
     <script>
         var time = 0;
-        let timerRunning = false;
 
         function resetTimer() {
             time = 60;
@@ -17,10 +16,20 @@
         function updateTimer() {
             time -= 1;
             document.getElementById("time").innerHTML = time;
-        }   
+        }
+
+        function stopTimer() {
+            document.getElementById("stopTimer").style.display = "none";
+            document.getElementById("answerBox").style.display = "inline";
+            document.getElementById("answerBoxLabel").style.display = "inline";
+            document.getElementById("submitAnswer").style.display = "inline";
+            document.getElementById("time").style.display = "none";
+        }
 
         function startTimer() {
             resetTimer();
+            document.getElementById("stopTimer").style.display = "inline";
+            document.getElementById("startTimer").style.display = "none";
             for (let i=1000; i<61000; i+=1000) {
                 setTimeout(updateTimer, i);
             }
@@ -37,11 +46,18 @@
     <div id="timer">
         <h2 id="time">0</h2>
         <button id="startTimer" class="timerButton" onclick="startTimer()">Start</button>
-        <button id="resetTimer" class="timerButton" onclick="resetTimer()">Reset</button>
+        <button id="stopTimer" class="timerButton" onclick="stopTimer()" style="display: none;">Stop</button>
+        <form>
+            <label for="answerBox" id="answerBoxLabel" style="display: none;">Enter answer:</label>
+            <br>
+            <input type="text" id="answerBox" style="display: none;">
+            <br>
+            <input type="submit" id="submitAnswer" class="timerButton" value="Enter" style="display: none;">
+        </form>
     </div>
 
     <ul>
-        <h1>{{ question }}</h1>
+        <h2 id="question">{{ question }}</h2>
 
         {% for answer in answers %}
             <li>{{ answer }}</li>

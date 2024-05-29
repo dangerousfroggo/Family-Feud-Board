@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS questions;
-
-CREATE TABLE questions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    question TEXT NOT NULL,
-    answers TEXT NOT NULL
-)
