@@ -1,5 +1,5 @@
 import ast
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, flash, redirect
 import json
 
 app = Flask(__name__)
@@ -31,6 +31,21 @@ def index():
     if pair:
         question, answers = pair
         return render_template('index.html', question=question, answers=answers)
+    else:
+        return "No more questions."
+
+@app.route('/answerpage', methods=('GET', 'POST'))
+def answerpage():
+    submittedAnswers = []
+    if request.method == 'POST':
+        submittedAnswer = request.form['submittedAnswer']
+        submittedAnswers.append(submittedAnswer)
+        print(submittedAnswers)
+    # Check if each answer is in the json dicts. If so, skip reading the next pair
+    pair = reader.next_pair()
+    if pair:
+        question, answers = pair
+        return render_template('answerpage.html', question=question, answers=answers)
     else:
         return "No more questions."
 

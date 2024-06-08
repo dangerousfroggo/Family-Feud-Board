@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>Family Feud</title>
+
+</head>
+
+<body>
+
+    <h1>FAMILY FEUD</h1>
+
+    <form method="post" style="text-align: center;">
+        <label for="answerBox" id="answerBoxLabel">Enter answer:</label>
+        <br><br>
+        <input type="text" id="answerBox" name="submittedAnswer">
+        <br><br>
+        <button type="submit" id="submitAnswer" class="timerButton" value="Enter">Submit</button>
+    </form>
+
+    <ul>
+        <h2 id="question">{{ question }}</h2>
+
+        {% for answer in answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

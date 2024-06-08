@@ -45,24 +45,11 @@
 
     <div id="timer">
         <h2 id="time">0</h2>
-        <button id="startTimer" class="timerButton" onclick="startTimer()">Start</button>
-        <button id="stopTimer" class="timerButton" onclick="stopTimer()" style="display: none;">Stop</button>
-        <form>
-            <label for="answerBox" id="answerBoxLabel" style="display: none;">Enter answer:</label>
-            <br><br>
-            <input type="text" id="answerBox" style="display: none;">
-            <br><br>
-            <input type="submit" id="submitAnswer" class="timerButton" value="Enter" style="display: none;">
-        </form>
+        <button id="startTimer" onclick="startTimer()">Start</button>
+        <button id="stopTimer" onclick="stopTimer()" style="display: none;"><a href="{{url_for('answerpage')}}">Stop</a></button>
     </div>
 
-    <ul>
-        <h2 id="question">{{ question }}</h2>
-
-        {% for answer in answers %}
-            <li>{{ answer }}</li>
-        {% endfor %}
-    </ul>
+    <h2 id="question">{{ question }}</h2>
 
 </body>
 </html>
