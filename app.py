@@ -1,4 +1,6 @@
 import os
+from os import path
+import json
 from flask import Flask, render_template, request, redirect
 
 from google.oauth2 import service_account
@@ -7,6 +9,14 @@ from googleapiclient.discovery import build
 app = Flask(__name__)
 
 
+#List for correct answers
+answerlist = 'answers.json'
+correct_answers = []
+
+if path.isfile(answerlist) is False:
+    raise exception("File not found")
+
+#Google Sheets API
 SERVICE_ACCOUNT_FILE = 'service-account.json'
 
 
@@ -74,9 +84,14 @@ class GetQuestionAnswers:
 
 reader = GetQuestionAnswers(questions, answers)
 
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    correct_answers = []
+
+    with open(answerlist) as fp:
+        correct_answers = json.load(fp)
+
     question, answers = reader.same_pair()  
     
     if question:
@@ -84,7 +99,9 @@ def index():
             submitted_answer = request.form['submittedAnswer']
             if submitted_answer in answers:
                 correct_answers.append(submitted_answer)
-        return render_template('index.html', question=question, answers=answers)
+                with open(answerlist, 'w') as json_file:
+                    json.dump(correct_answers, json_file)
+        return render_template('index.html', question=question, answers=correct_answers)
     else:
         return "No more questions."
 
@@ -106,6 +123,8 @@ def answerpage():
 @app.route('/nextquestion/')
 def next_question():
     pair = reader.next_pair()
+    with open(answerlist, 'w') as json_file:
+        json.dump([], json_file)
     return redirect('/')
 
 if __name__ == '__main__':
