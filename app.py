@@ -23,6 +23,10 @@ class GetQuestionAnswers:
         self.index += 1
         return current_pair
 
+    def same_pair(self):
+        current_pair = list(self.pairs.items())[self.index]
+        return current_pair
+
 reader = GetQuestionAnswers(filepath)
 
 @app.route('/')
@@ -36,18 +40,26 @@ def index():
 
 @app.route('/answerpage', methods=('GET', 'POST'))
 def answerpage():
-    submittedAnswers = []
-    if request.method == 'POST':
-        submittedAnswer = request.form['submittedAnswer']
-        submittedAnswers.append(submittedAnswer)
-        print(submittedAnswers)
-    # Check if each answer is in the json dicts. If so, skip reading the next pair
-    pair = reader.next_pair()
+    correctAnswers = []
+    pair = reader.same_pair()
     if pair:
         question, answers = pair
-        return render_template('answerpage.html', question=question, answers=answers)
+        if request.method == 'POST':
+            submittedAnswer = request.form['submittedAnswer']
+            if submittedAnswer in answers:
+                correctAnswers.append(submittedAnswer)
+            #else:
+                #pair = reader.next_pair()
+            print(answers)
+            print(correctAnswers)
+        return render_template('answerpage.html', question=question, answers=correctAnswers)
     else:
         return "No more questions."
+
+@app.route('/nextquestion/')
+def next_question():
+    pair = reader.next_pair()
+    return redirect('/answerpage')
 
 if __name__ == '__name__':
     app.run(debug=True)
