@@ -27,15 +27,34 @@ sheet = service.spreadsheets()
 result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
 values = result.get('values', [])
 
+def transpose_data(data):
+    num_rows = len(data)
+    num_columns = max(len(row) for row in data)
+    
+   
+    transposed_data = []
+    for col_idx in range(num_columns):
+        column = []
+        for row_idx in range(num_rows):
+          
+            if col_idx < len(data[row_idx]):
+                column.append(data[row_idx][col_idx])
+            else:
+                column.append(None)
+        transposed_data.append(column)
+    
+    return transposed_data
 
 if not values:
     print('No data found.')
 else:
     #The first row contains the questions
     questions = values[0]
-    
+    print(questions)
     #The following rows contain the answers
-    answers = values[1:]
+    
+    answers = transpose_data(values[1:])
+    print(answers)
 
 class GetQuestionAnswers:
     def __init__(self, questions, answers, index=0):
@@ -86,4 +105,3 @@ def next_question():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
