@@ -66,6 +66,21 @@ else:
     answers = transpose_data(values[1:])
     print(answers)
 
+#returns a dict with the values of eachanswer
+def get_points_value(answers):
+    default_points = 10
+    points_dict = {}
+    for answer_array1 in answers:
+        for index, answer in enumerate(answer_array1):
+            if answer is not None:
+                points_dict[answer] = max(default_points - index,0)
+    return points_dict                                 
+
+#returns the value of a specific question
+def get_value_of_answer(dict,answer):
+    value = dict[answer]
+    return value                                      
+
 class GetQuestionAnswers:
     def __init__(self, questions, answers, index=0):
         self.questions = questions
@@ -83,6 +98,7 @@ class GetQuestionAnswers:
         return self.questions[self.index - 1], self.answers[self.index - 1]
 
 reader = GetQuestionAnswers(questions, answers)
+
 
 
 
