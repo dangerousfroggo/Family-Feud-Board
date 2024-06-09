@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <title>Family Feud</title>
 
     <script>
         var time = 0;
+        var timerInterval;
 
         function resetTimer() {
             time = 60;
@@ -16,40 +16,46 @@
         function updateTimer() {
             time -= 1;
             document.getElementById("time").innerHTML = time;
-        }
-
-        function stopTimer() {
-            document.getElementById("stopTimer").style.display = "none";
-            document.getElementById("answerBox").style.display = "inline";
-            document.getElementById("answerBoxLabel").style.display = "inline";
-            document.getElementById("submitAnswer").style.display = "inline";
-            document.getElementById("time").style.display = "none";
+            if (time <= 0) {
+                stopTimer();
+            }
         }
 
         function startTimer() {
             resetTimer();
-            document.getElementById("stopTimer").style.display = "inline";
             document.getElementById("startTimer").style.display = "none";
-            for (let i=1000; i<61000; i+=1000) {
-                setTimeout(updateTimer, i);
-            }
+            document.getElementById("stopTimer").style.display = "inline";
+            timerInterval = setInterval(updateTimer, 1000);
         }
 
+        function stopTimer() {
+            clearInterval(timerInterval);
+            document.getElementById("stopTimer").style.display = "none";
+            document.getElementById("time").style.display = "none";
+            document.getElementById("answerBox").style.display = "block";
+            document.getElementById("answerBoxLabel").style.display = "block";
+            document.getElementById("submitAnswer").style.display = "block";
+        }
     </script>
-
 </head>
-
 <body onload="resetTimer()">
-
     <h1>FAMILY FEUD</h1>
 
     <div id="timer">
-        <h2 id="time">0</h2>
+        <h2 id="time">60</h2>
         <button id="startTimer" onclick="startTimer()">Start</button>
-        <button id="stopTimer" onclick="stopTimer()" style="display: none;"><a href="{{url_for('answerpage')}}">Stop</a></button>
+        <button id="stopTimer" onclick="stopTimer()" style="display: none;">Stop</button>
     </div>
 
     <h2 id="question">{{ question }}</h2>
+
+    <form method="post" style="text-align: center; display: none;" id="answerForm" action="{{ url_for('answerpage') }}">
+        <label for="answerBox" id="answerBoxLabel">Enter answer:</label>
+        <br><br>
+        <input type="text" id="answerBox" name="submittedAnswer">
+        <br><br>
+        <button type="submit" id="submitAnswer" class="timerButton" value="Enter">Submit</button>
+    </form>
 
 </body>
 </html>

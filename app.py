@@ -1,54 +1,81 @@
-import ast
-from flask import Flask, render_template, request, url_for, flash, redirect
-import json
+import os
+from flask import Flask, render_template, request, redirect
+
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 app = Flask(__name__)
-filepath = 'questions.json'
+
+
+SERVICE_ACCOUNT_FILE = 'service-account.json'
+
+
+SPREADSHEET_ID = '1k0SQWeCJDjrbasrXv8ZGvV9MMvW5aWWMsWxRjacvbyA'
+
+
+RANGE_NAME = 'Sheet1!A1:Z1000'
+
+
+credentials = service_account.Credentials.from_service_account_file(
+    SERVICE_ACCOUNT_FILE,
+    scopes=["https://www.googleapis.com/auth/spreadsheets.readonly"],
+)
+service = build('sheets', 'v4', credentials=credentials)
+
+
+sheet = service.spreadsheets()
+result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
+values = result.get('values', [])
+
+
+if not values:
+    print('No data found.')
+else:
+    #The first row contains the questions
+    questions = values[0]
+    
+    #The following rows contain the answers
+    answers = values[1:]
 
 class GetQuestionAnswers:
-    def __init__(self, filepath, index=0):
-        self.filepath = filepath
-        self.pairs = self.load_pairs()
+    def __init__(self, questions, answers, index=0):
+        self.questions = questions
+        self.answers = answers
         self.index = index
     
-    def load_pairs(self):
-        with open(self.filepath, 'r') as file:
-            content = file.read()
-            return json.loads(content)
-    
     def next_pair(self):
-        if self.index >= len(self.pairs):
+        if self.index >= len(self.answers):
             return None
-        current_pair = list(self.pairs.items())[self.index]
+        current_pair = (self.questions, self.answers[self.index])
         self.index += 1
         return current_pair
 
     def same_pair(self):
-        current_pair = list(self.pairs.items())[self.index]
-        return current_pair
+        return self.questions, self.answers[self.index - 1]
 
-reader = GetQuestionAnswers(filepath)
+reader = GetQuestionAnswers(questions, answers)
 
 @app.route('/')
 def index():
-    pair = reader.next_pair()
-    if pair:
-        question, answers = pair
-        return render_template('index.html', question=question, answers=answers)
+    question, answers = reader.same_pair()  
+    
+    
+
+    if question:
+        return render_template('index.html', question=question[1], answers=answers[1])
     else:
         return "No more questions."
 
-@app.route('/answerpage', methods=('GET', 'POST'))
+@app.route('/answerpage', methods=['GET', 'POST'])
 def answerpage():
-    correctAnswers = []
-    pair = reader.same_pair()
-    if pair:
-        question, answers = pair
+    correct_answers = []
+    question, answers = reader.same_pair()
+    if question:
         if request.method == 'POST':
-            submittedAnswer = request.form['submittedAnswer']
-            if submittedAnswer in answers:
-                correctAnswers.append(submittedAnswer)
-        return render_template('answerpage.html', question=question, answers=correctAnswers)
+            submitted_answer = request.form['submittedAnswer']
+            if submitted_answer in answers:
+                correct_answers.append(submitted_answer)
+        return render_template('answerpage.html', question=question, answers=answers, correct_answers=correct_answers)
     else:
         return "No more questions."
 
@@ -57,5 +84,6 @@ def next_question():
     pair = reader.next_pair()
     return redirect('/')
 
-if __name__ == '__name__':
+if __name__ == '__main__':
     app.run(debug=True)
+
