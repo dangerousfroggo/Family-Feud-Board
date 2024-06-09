@@ -55,17 +55,21 @@ class GetQuestionAnswers:
 
 reader = GetQuestionAnswers(questions, answers)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    correct_answers = []
     question, answers = reader.same_pair()  
     
-    
-
     if question:
-        return render_template('index.html', question=question[1], answers=answers[1])
+        if request.method == 'POST':
+            submitted_answer = request.form['submittedAnswer']
+            if submitted_answer in answers:
+                correct_answers.append(submitted_answer)
+        return render_template('index.html', question=question[1], answers=answers[1:])
     else:
         return "No more questions."
 
+"""
 @app.route('/answerpage', methods=['GET', 'POST'])
 def answerpage():
     correct_answers = []
@@ -75,9 +79,10 @@ def answerpage():
             submitted_answer = request.form['submittedAnswer']
             if submitted_answer in answers:
                 correct_answers.append(submitted_answer)
-        return render_template('answerpage.html', question=question, answers=answers, correct_answers=correct_answers)
+        return render_template('answerpage.html', question=question[1], answers=answers[1:], correct_answers=correct_answers)
     else:
         return "No more questions."
+"""
 
 @app.route('/nextquestion/')
 def next_question():

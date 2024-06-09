@@ -32,9 +32,7 @@
             clearInterval(timerInterval);
             document.getElementById("stopTimer").style.display = "none";
             document.getElementById("time").style.display = "none";
-            document.getElementById("answerBox").style.display = "block";
-            document.getElementById("answerBoxLabel").style.display = "block";
-            document.getElementById("submitAnswer").style.display = "block";
+            document.getElementById("answerForm").style.display = "block";
         }
     </script>
 </head>
@@ -47,15 +45,25 @@
         <button id="stopTimer" onclick="stopTimer()" style="display: none;">Stop</button>
     </div>
 
-    <h2 id="question">{{ question }}</h2>
+    <button>
+        <a href="/nextquestion/">Next Question</a>
+    </button>
 
-    <form method="post" style="text-align: center; display: none;" id="answerForm" action="{{ url_for('answerpage') }}">
+    <form method="post" style="text-align: center; display: none;" id="answerForm">
         <label for="answerBox" id="answerBoxLabel">Enter answer:</label>
         <br><br>
         <input type="text" id="answerBox" name="submittedAnswer">
         <br><br>
         <button type="submit" id="submitAnswer" class="timerButton" value="Enter">Submit</button>
     </form>
+
+    <ul>
+        <h2 id="question">{{ question }}</h2>
+
+        {% for answer in answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
 
 </body>
 </html>
