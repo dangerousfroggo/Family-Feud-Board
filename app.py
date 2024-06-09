@@ -48,10 +48,6 @@ def answerpage():
             submittedAnswer = request.form['submittedAnswer']
             if submittedAnswer in answers:
                 correctAnswers.append(submittedAnswer)
-            #else:
-                #pair = reader.next_pair()
-            print(answers)
-            print(correctAnswers)
         return render_template('answerpage.html', question=question, answers=correctAnswers)
     else:
         return "No more questions."
@@ -59,7 +55,7 @@ def answerpage():
 @app.route('/nextquestion/')
 def next_question():
     pair = reader.next_pair()
-    return redirect('/answerpage')
+    return redirect('/')
 
 if __name__ == '__name__':
     app.run(debug=True)
