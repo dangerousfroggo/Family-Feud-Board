@@ -65,12 +65,12 @@ class GetQuestionAnswers:
     def next_pair(self):
         if self.index >= len(self.answers):
             return None
-        current_pair = (self.questions, self.answers[self.index])
+        current_pair = (self.questions[self.index], self.answers[self.index])
         self.index += 1
         return current_pair
 
     def same_pair(self):
-        return self.questions, self.answers[self.index - 1]
+        return self.questions[self.index - 1], self.answers[self.index - 1]
 
 reader = GetQuestionAnswers(questions, answers)
 
@@ -84,7 +84,7 @@ def index():
             submitted_answer = request.form['submittedAnswer']
             if submitted_answer in answers:
                 correct_answers.append(submitted_answer)
-        return render_template('index.html', question=question[1], answers=answers[1:])
+        return render_template('index.html', question=question, answers=answers)
     else:
         return "No more questions."
 
