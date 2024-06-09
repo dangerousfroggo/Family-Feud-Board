@@ -97,28 +97,13 @@ def index():
     if question:
         if request.method == 'POST':
             submitted_answer = request.form['submittedAnswer']
-            if submitted_answer in answers:
+            if submitted_answer in answers and not submitted_answer in correct_answers:
                 correct_answers.append(submitted_answer)
                 with open(answerlist, 'w') as json_file:
                     json.dump(correct_answers, json_file)
         return render_template('index.html', question=question, answers=correct_answers)
     else:
         return "No more questions."
-
-"""
-@app.route('/answerpage', methods=['GET', 'POST'])
-def answerpage():
-    correct_answers = []
-    question, answers = reader.same_pair()
-    if question:
-        if request.method == 'POST':
-            submitted_answer = request.form['submittedAnswer']
-            if submitted_answer in answers:
-                correct_answers.append(submitted_answer)
-        return render_template('answerpage.html', question=question[1], answers=answers[1:], correct_answers=correct_answers)
-    else:
-        return "No more questions."
-"""
 
 @app.route('/nextquestion/')
 def next_question():

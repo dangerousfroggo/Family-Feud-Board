@@ -9,7 +9,13 @@ body {
 h1 {
     text-align: center;
     font-size: 100px;
-    color: yellow;
+    color: #F4B748;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #timer {
@@ -21,21 +27,13 @@ h1 {
     color: white;
     background-color: blue;
     width: 180px;
-    margin-left: 664px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0%;
+    margin-bottom: 15px;
     border-style: solid;
     border-width: 6px;
-    border-color: lightskyblue;
-}
-
-button {
-    border-style: solid;
-    border-width: 5px;
-    border-color: yellow;
-    border-radius: 15%;
-    background-color: blue;
-    color: white;
-    font-size: 25px;
-    padding: 10px;
+    border-color: #7CE3FB;
 }
 
 a {
@@ -43,36 +41,64 @@ a {
     text-decoration: none;
 }
 
-button:hover {
+button {
     border-style: solid;
     border-width: 5px;
-    border-color: yellow;
+    border-color: #FFFF6A;
     border-radius: 15%;
-    background-color: darkblue;
+    background-color: blue;
     color: white;
     font-size: 25px;
     padding: 10px;
+    box-shadow: 0 9px #F4B748;
+}
+
+button:hover {
+    border-style: solid;
+    border-width: 5px;
+    border-color: #FFFF6A;
+    border-radius: 15%;
+    background-color: #0F1383;
+    color: white;
+    font-size: 25px;
+    padding: 10px;
+    box-shadow: 0 9px #F4B748;
+}
+
+button:active {
+    border-style: solid;
+    border-width: 5px;
+    border-color: #FFFF6A;
+    border-radius: 15%;
+    background-color: #0F1383;
+    color: white;
+    font-size: 25px;
+    padding: 10px;
+    box-shadow: 0 5px #EE7F34;
+    transform: translateY(4px);
 }
 
 #answerBox {
     color: white;
     font-size: 24px;
-    background-color: mediumblue;
+    background-color: blue;
     border-style: solid;
     border-width: 5px;
-    border-color: yellow;
+    border-color: #FFFF6A;
     padding: 15px;
+    box-shadow: 0 9px #F4B748;
 }
 
 #answerBoxLabel {
     color: white;
     font-size: 24px;
+    text-shadow: 2px 2px black;
 }
 
 #question {
     color: white;
     font-size: 50px;
-    background-color: darkblue;
+    background-color: #0F1383;
     border-style: solid;
     border-width: 5px;
     border-color: blue;

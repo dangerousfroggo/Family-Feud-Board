@@ -37,24 +37,25 @@
     </script>
 </head>
 <body onload="resetTimer()">
-    <h1>FAMILY FEUD</h1>
+
+    <button style="display: block; margin-left: auto;">
+        <a href="/nextquestion/">NEXT QUESTION</a>
+    </button>
+
+    <img src="static/css/family_feud_logo.png" id="logo">
 
     <div id="timer">
         <h2 id="time">60</h2>
-        <button id="startTimer" onclick="startTimer()">Start</button>
-        <button id="stopTimer" onclick="stopTimer()" style="display: none;">Stop</button>
+        <button id="startTimer" onclick="startTimer()">START</button>
+        <button id="stopTimer" onclick="stopTimer()" style="display: none;">STOP</button>
     </div>
 
-    <button>
-        <a href="/nextquestion/">Next Question</a>
-    </button>
-
     <form method="post" style="text-align: center; display: none;" id="answerForm">
-        <label for="answerBox" id="answerBoxLabel">Enter answer:</label>
+        <label for="answerBox" id="answerBoxLabel"><strong>ENTER ANSWER:</strong></label>
         <br><br>
-        <input type="text" id="answerBox" name="submittedAnswer">
+        <input type="text" id="answerBox" name="submittedAnswer" autocomplete="off" oninput="this.value = this.value.toUpperCase()">
         <br><br>
-        <button type="submit" id="submitAnswer" class="timerButton" value="Enter">Submit</button>
+        <button type="submit" id="submitAnswer" class="timerButton">SUBMIT</button>
     </form>
 
     <ul>
