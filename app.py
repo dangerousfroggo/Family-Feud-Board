@@ -14,7 +14,7 @@ answerlist = 'answers.json'
 correct_answers = []
 
 if path.isfile(answerlist) is False:
-    raise exception("File not found")
+    raise Exception("File not found")
 
 #Google Sheets API
 SERVICE_ACCOUNT_FILE = 'service-account.json'
