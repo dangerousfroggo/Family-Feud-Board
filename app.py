@@ -120,5 +120,11 @@ def next_question():
         json.dump([], json_file)
     return redirect('/')
 
+@app.route('/clearanswers/')
+def clear_answers():
+    with open(answerlist, 'w') as json_file:
+        json.dump([], json_file)
+    return redirect('/')
+
 if __name__ == '__main__':
     app.run(debug=True)
