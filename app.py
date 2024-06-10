@@ -100,8 +100,6 @@ class GetQuestionAnswers:
 reader = GetQuestionAnswers(questions, answers)
 
 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
